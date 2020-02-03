@@ -1,6 +1,10 @@
+<?php include('../includes/header.php'); ?>
+
+
 <?php 
 
 	include_once('./config/database.php');
+	include('../php_jwt/src/JWT.php');
 
 	use \Firebase\JWT\JWT;
 
@@ -78,17 +82,25 @@
 					));	
 
 
-		} //end if
+		} else {
+
+			http_response_code(401);
+			echo json_encode(array("message" => "Login Failed"));
+
+		}
 
 
 
 	} else {
 
-		http_response_code(401);
-		echo json_encode(array("message" => "Login Failed"));
+		http_response_code(404);
+		echo json_encode(array("message" => "No User Registered Yet"));
+
 	}
 
 
 
 
  ?>
+
+ <?php include('../includes/footer.php') ?>
